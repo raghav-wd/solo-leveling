@@ -1,0 +1,19 @@
+import Fastify from "fastify";
+import cors from "@fastify/cors";
+import { registerRoutes } from "./routes/index.js";
+
+const app = Fastify({ logger: true });
+
+await app.register(cors, {
+  origin: true,
+});
+
+registerRoutes(app);
+
+const port = Number(process.env.PORT ?? 8080);
+const host = process.env.HOST ?? "0.0.0.0";
+
+app.listen({ port, host }).catch((error) => {
+  app.log.error(error);
+  process.exit(1);
+});
