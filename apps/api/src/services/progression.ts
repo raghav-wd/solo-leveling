@@ -2,8 +2,10 @@ import dayjs from "dayjs";
 import { AppConfig, DailySummary, LogEntry } from "../types.js";
 
 const xpNeededForNextLevel = (level: number, config: AppConfig) => {
+  const growthExponent = (level - 1) * 0.7;
   const raw =
-    config.leveling.baseXpPerLevel * config.leveling.growthRate ** (level - 1);
+    config.leveling.baseXpPerLevel *
+    config.leveling.growthRate ** growthExponent;
   return Math.round(raw);
 };
 
